@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".fragments.InsertFragment">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduce un titulo"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduzca una descripción"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduzca una fecha"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtHora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduzca una hora"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtGeo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduzca una Localizacion"/>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
