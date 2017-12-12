@@ -12,6 +12,10 @@
     <string name="nuevo_evento">Insertar Evento</string>
     <string name="cancelar">Cancelar</string>
     <string name="guardar">Guardar</string>
-    
+
     <string name="editar_evento">Editar Evento</string>
+
+    <string name="lista_vacia">No hay eventos en esta fecha</string>
+
+    <string name="title_activity_detail">Detalle del Evento</string>
 </resources>

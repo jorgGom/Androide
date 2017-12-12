@@ -1,6 +1,8 @@
 package com.example.jorge.agenda.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
+import com.example.jorge.agenda.activity.DetailActivity;
 import com.example.jorge.agenda.adapters.EventsCursorAdapter;
 import com.example.jorge.agenda.providers.EventsContract;
 
@@ -33,6 +37,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
     private LinearLayoutManager mLayoutManager;
     public String consulta;
     public TextView fecha;
+    private Context context;
 
     public ListFragment() {
         // Required empty public constructor
@@ -45,9 +50,11 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         View view = inflater.inflate(
                 R.layout.fragment_reclycer, container, false);
 
-
+        context = view.getContext();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
         mRecyclerView.setHasFixedSize(true);
+
+
         configuraSwipe();
 
         fecha =(TextView) view.findViewById(R.id.fechaSelecionada);
@@ -63,7 +70,6 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                         EventsContract.Columnas.HORA_EVENTO + " asc ;";
 
         mLayoutManager = new LinearLayoutManager(getActivity());
-
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
@@ -73,8 +79,10 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                     public void itemFueClicado(Cursor cursor) {
                         long id  = cursor.getLong(
                                 cursor.getColumnIndex(EventsContract.Columnas._ID));
-                        InsertFragment newFr = InsertFragment.newInstance(id);
-                        newFr.show(getFragmentManager(), "dialog");
+
+                        Intent detail = new Intent(context.getApplicationContext(), DetailActivity.class);
+                        detail.putExtra("id", id);
+                        context.startActivity(detail);
                     }
                 });
         mAdapter.setHasStableIds(true);
@@ -91,6 +99,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                     public boolean onMove(RecyclerView recyclerView,
                                           RecyclerView.ViewHolder viewHolder,
                                           RecyclerView.ViewHolder target) {
+
                         return false;
                     }
 
@@ -109,11 +118,13 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                         getActivity().getContentResolver().delete(
                                 uriToDelete,
                                 null, null);
+
                     }
                 };
         ItemTouchHelper itemTouchHelper =
                 new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
     }
 
     @Override
@@ -127,8 +138,8 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.setCursor(data);
     }
-    public void setDate(String DateSelect){
 
+    public void setDate(String DateSelect){
 
         getLoaderManager().destroyLoader(0);
         consulta =

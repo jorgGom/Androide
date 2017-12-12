@@ -4,6 +4,7 @@ package com.example.jorge.agenda.fragments;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
 import com.example.jorge.agenda.providers.EventsContract;
+import com.example.jorge.agenda.providers.EventsProvider;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -146,34 +148,5 @@ public class InsertFragment extends DialogFragment
 
     }
 
-   /* private void GuardarEvento() {
 
-        String dirs = mEdtGeo.getText().toString();
-        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
-        String resultado = null;
-        try {
-            List<Address> list = geocoder.getFromLocationName(dirs, 1);
-            if (list != null && list.size() > 0) {
-                Address address = list.get(0);
-
-                resultado = address.getAddressLine(0) + ", " + address.getLocality();
-            }
-        }
-        catch (IOException e) {
-            Toast.makeText(getActivity(), "Error al recoger la dirrecion", Toast.LENGTH_SHORT).show();
-        }
-
-
-        ContentValues values = new ContentValues();
-        values.put(EventsContract.Columnas.TITULO, mEdtTitulo.getText().toString());
-        values.put(EventsContract.Columnas.DESCRIPCION, mEdtDescipcion.getText().toString());
-        values.put(EventsContract.Columnas.FECHA_EVENTO, mEdtFecha.getText().toString());
-        values.put(EventsContract.Columnas.HORA_EVENTO, mEdtHora.getText().toString());
-        values.put(EventsContract.Columnas.LOCALIZACION, resultado);
-
-        getActivity().getContentResolver().insert(
-                EventsContract.CONTENT_URI,
-                values
-        );
-    }*/
 }

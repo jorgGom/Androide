@@ -1,9 +1,11 @@
 package com.example.jorge.agenda.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.jorge.agenda.R;
+import com.example.jorge.agenda.fragments.DatePickerFragment;
 import com.example.jorge.agenda.fragments.InsertFragment;
 import com.example.jorge.agenda.fragments.ListFragment;
 import com.example.jorge.agenda.fragments.MainDatePickerFragment;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
+
             ListFragment fragment = new ListFragment();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.action_calendar){
-            DialogFragment newFragment = new MainDatePickerFragment();
+            DialogFragment newFragment = new DatePickerFragment();
             newFragment.show(getSupportFragmentManager(), "datePicker");
 
             return true;
@@ -102,10 +106,13 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager=getSupportFragmentManager();
 
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_eventos) {
             // Handle the camera action
+            FragmentTransaction ft= fragmentManager.beginTransaction();
+            ft.replace(R.id.container, new ListFragment()).commit();
         } else if (id == R.id.nav_gallery) {
-
+            FragmentTransaction ft= fragmentManager.beginTransaction();
+            ft.replace(R.id.container, new ListFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

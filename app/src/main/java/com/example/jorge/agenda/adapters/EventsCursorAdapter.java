@@ -25,7 +25,7 @@ public class EventsCursorAdapter extends RecyclerView.Adapter<EventsCursorAdapte
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_layout, parent, false);
+                .inflate(R.layout.row_layout2, parent, false);
 
         final VH vh = new VH(v);
         v.setOnClickListener(new View.OnClickListener() {
@@ -47,17 +47,20 @@ public class EventsCursorAdapter extends RecyclerView.Adapter<EventsCursorAdapte
         int idx_descr = mCursor.getColumnIndex(EventsContract.Columnas.DESCRIPCION);
         int idx_fecha = mCursor.getColumnIndex(EventsContract.Columnas.FECHA_EVENTO);
         int idx_hora = mCursor.getColumnIndex(EventsContract.Columnas.HORA_EVENTO);
+        int idx_geo = mCursor.getColumnIndex(EventsContract.Columnas.LOCALIZACION);
 
 
         String titulo = mCursor.getString(idx_titulo);
         String descripcion = mCursor.getString(idx_descr);
         String fecha = mCursor.getString(idx_fecha);
         String hora = mCursor.getString(idx_hora);
+        String geo = mCursor.getString(idx_geo);
 
         holder.titulo.setText(titulo);
         holder.descripcion.setText(descripcion);
         holder.fecha.setText(fecha);
         holder.hora.setText(hora);
+        holder.geo.setText(geo);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class EventsCursorAdapter extends RecyclerView.Adapter<EventsCursorAdapte
     }
 
     public class VH extends RecyclerView.ViewHolder {
-        public TextView titulo, descripcion, fecha, hora ;
+        public TextView titulo, descripcion, fecha, hora, geo ;
 
         public VH(View v) {
                super(v);
@@ -101,6 +104,7 @@ public class EventsCursorAdapter extends RecyclerView.Adapter<EventsCursorAdapte
                 descripcion = (TextView) v.findViewById(R.id.DescripcionTV1);
                 fecha = (TextView) v.findViewById(R.id.FechaTV1);
                 hora = (TextView) v.findViewById(R.id.HoraTV1);
+                geo = (TextView) v.findViewById(R.id.GeoTV1);
             }
         }
     }
