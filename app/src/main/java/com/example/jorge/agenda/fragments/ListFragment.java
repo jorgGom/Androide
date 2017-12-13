@@ -6,14 +6,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +32,8 @@ import com.example.jorge.agenda.providers.EventsContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,12 +85,16 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                 new EventsCursorAdapter.AlClicarNoItem() {
                     @Override
                     public void itemFueClicado(Cursor cursor) {
-                        long id  = cursor.getLong(
+                        int id  = cursor.getInt(
                                 cursor.getColumnIndex(EventsContract.Columnas._ID));
 
                         Intent detail = new Intent(context.getApplicationContext(), DetailActivity.class);
                         detail.putExtra("id", id);
+
                         context.startActivity(detail);
+
+
+
                     }
                 });
         mAdapter.setHasStableIds(true);
@@ -90,6 +102,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
         getLoaderManager().initLoader(0, null, this);
         return view;
+
     }
     private void configuraSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
@@ -128,6 +141,27 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_calendar:
+                Toast.makeText(getActivity(), "hola", Toast.LENGTH_SHORT).show();
+
+                MainDatePickerFragment newFragment = new MainDatePickerFragment();
+                newFragment.setHostingFragment(this);
+                newFragment.show(getFragmentManager(), "datePicker");
+
+        }
+        return false;
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args){
          return new CursorLoader(getActivity(),
         EventsContract.CONTENT_URI,null, consulta, null,
@@ -138,6 +172,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.setCursor(data);
     }
+
 
     public void setDate(String DateSelect){
 

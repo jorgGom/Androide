@@ -42,7 +42,7 @@ public class DatePickerFragment extends DialogFragment
         SimpleDateFormat sdf =new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = sdf.format(c.getTime());
 
-        TextView tv1=(TextView) getActivity().findViewById(R.id.fechaSelecionada);
+        TextView tv1=(TextView) getActivity().findViewById(R.id.edtFecha);
         tv1.setText(formattedDate);
 
         Toast.makeText(getActivity(), formattedDate, Toast.LENGTH_SHORT).show();

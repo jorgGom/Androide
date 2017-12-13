@@ -27,27 +27,45 @@
             android:layout_height="wrap_content"
             android:hint="Introduzca una descripción"/>
     </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edtFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Introduzca una fecha"/>
-    </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha"
+                android:gravity="center"
+                android:focusable="false"
+                android:clickable="true"
+                android:textAlignment="center"
+                android:id="@+id/edtFecha"
+               />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hora"
+                android:focusable="false"
+                android:clickable="true"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:id="@+id/edtHora"
+                />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edtHora"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Introduzca una hora"/>
-    </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

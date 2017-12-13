@@ -18,4 +18,9 @@
     <string name="lista_vacia">No hay eventos en esta fecha</string>
 
     <string name="title_activity_detail">Detalle del Evento</string>
+
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_share">Compartir</string>
+
 </resources>

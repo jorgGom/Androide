@@ -66,11 +66,27 @@ public class InsertFragment extends DialogFragment
 
         mEdtFecha.setText(today);
 
+        mEdtFecha.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+
         Date horas=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
         String formattedTime=sdf.format(horas);
 
         mEdtHora.setText(formattedTime);
+
+        mEdtHora.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                DialogFragment newTimeFragment = new TimePickerFragment();
+                newTimeFragment.show(getFragmentManager(),"timePicker");
+            }
+        });
 
         boolean nuevoMensage = true;
         if (getArguments() != null && getArguments().getLong(EXTRA_ID) != 0){
@@ -117,6 +133,8 @@ public class InsertFragment extends DialogFragment
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
+
+
         String dirs = mEdtGeo.getText().toString();
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         String resultado = null;
