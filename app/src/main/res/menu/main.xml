@@ -8,7 +8,8 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_calendar"
+        android:icon="@drawable/ic_today"
         android:orderInCategory="100"
         android:title="Selecionar Fecha"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>

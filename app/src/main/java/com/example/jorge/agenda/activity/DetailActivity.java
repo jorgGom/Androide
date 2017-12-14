@@ -1,7 +1,6 @@
 package com.example.jorge.agenda.activity;
 
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,11 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
+import com.example.jorge.agenda.fragments.InsertFragment;
+import com.example.jorge.agenda.fragments.UpdateFragment;
 import com.example.jorge.agenda.providers.EventsContract;
 
 import static android.content.ContentValues.TAG;
@@ -23,9 +23,7 @@ import static android.content.ContentValues.TAG;
 public class DetailActivity extends AppCompatActivity {
 
     private TextView descripcion, titulo, fecha, hora, geo;
-    private int id;
-    private Context context;
-    private String value;
+    private int temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         geo = (TextView) findViewById(R.id.geo_label);
 
         Intent intent = getIntent();
-        int temp = intent.getIntExtra("id", -1);
+        temp = intent.getIntExtra("id", -1);
         Log.d(TAG, "-------------------------------onClick() posicion del evento en el recyclerview con: " + temp);
         updateView(temp);
     }
@@ -80,6 +78,17 @@ public class DetailActivity extends AppCompatActivity {
 
         c.close();
     }
+    private void deleteData() {
+        Uri uri = Uri.withAppendedPath(
+                EventsContract.CONTENT_URI, String.valueOf(temp));
+        getContentResolver().delete(
+                uri,
+                null,
+                null
+        );
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +103,14 @@ public class DetailActivity extends AppCompatActivity {
 
         switch (id) {
 
+            case R.id.action_delete:
+                deleteData();
+                finish();
+                Toast.makeText(this, "Evento eliminado", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_edit:
+                beginUpdate();
+                return true;
             case R.id.action_share:
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
@@ -103,10 +120,23 @@ public class DetailActivity extends AppCompatActivity {
                         " Hora del evento: "+hora.getText().toString()+System.getProperty("line.separator")+
                         " Localización: "+geo.getText().toString());
                 startActivity(intent);
-
             default:
                 return super.onOptionsItemSelected(item);
+
+
         }
 
+    }
+    private void beginUpdate() {
+        Intent detail = new Intent(getApplicationContext(), UpdateFragment.class);
+            detail.putExtra(EventsContract.Columnas._ID, temp);
+            detail.putExtra(EventsContract.Columnas.TITULO, titulo.getText());
+            detail.putExtra(EventsContract.Columnas.DESCRIPCION, descripcion.getText());
+            detail.putExtra(EventsContract.Columnas.FECHA_EVENTO, fecha.getText());
+            detail.putExtra(EventsContract.Columnas.HORA_EVENTO, hora.getText());
+            detail.putExtra(EventsContract.Columnas.LOCALIZACION, geo.getText());
+
+        new UpdateFragment()
+                .show(getSupportFragmentManager(), "dialog");
     }
 }
