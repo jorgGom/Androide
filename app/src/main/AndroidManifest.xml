@@ -42,6 +42,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.jorge.agenda.activity.MainActivity" />
         </activity>
+        <activity android:name=".activity.RecordatorioActivity"></activity>
     </application>
 
 </manifest>

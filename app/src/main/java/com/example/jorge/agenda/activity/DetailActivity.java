@@ -22,8 +22,8 @@ import static android.content.ContentValues.TAG;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private TextView descripcion, titulo, fecha, hora, geo;
-    private int temp;
+    public TextView descripcion, titulo, fecha, hora, geo;
+    public int temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

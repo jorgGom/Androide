@@ -3,8 +3,12 @@ package com.example.jorge.agenda.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +30,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
+import com.example.jorge.agenda.activity.DetailActivity;
 import com.example.jorge.agenda.providers.EventsContract;
 import com.example.jorge.agenda.providers.EventsProvider;
 
@@ -45,6 +51,7 @@ public class InsertFragment extends DialogFragment
 
     EditText mEdtTitulo, mEdtDescipcion, mEdtFecha, mEdtHora, mEdtGeo;
     long id;
+    private Context mContext;
 
     public static InsertFragment newInstance(long id){
         Bundle bundle = new Bundle();
@@ -151,6 +158,7 @@ public class InsertFragment extends DialogFragment
                 .create();
     }
 
+
     public InsertFragment() {
         // Required empty public constructor
     }
@@ -195,6 +203,8 @@ public class InsertFragment extends DialogFragment
                 values
         );
         Toast.makeText(getActivity(), "Evento insertado", Toast.LENGTH_SHORT).show();
+
+
 
     }
 

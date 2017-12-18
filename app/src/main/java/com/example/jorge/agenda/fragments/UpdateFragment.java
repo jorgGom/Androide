@@ -1,7 +1,9 @@
 package com.example.jorge.agenda.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -18,8 +20,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
@@ -27,6 +31,7 @@ import com.example.jorge.agenda.providers.EventsContract;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -81,6 +86,47 @@ public class UpdateFragment extends DialogFragment
             cursor.close();
 
         }
+        fecha.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendario = Calendar.getInstance();
+                int yy = calendario.get(Calendar.YEAR);
+                int mm = calendario.get(Calendar.MONTH);
+                int dd = calendario.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        int mes= monthOfYear+1;
+                        String fechaT = String.valueOf(dayOfMonth)+"-"+String.valueOf(mes)
+                                +"-"+String.valueOf(year);
+                        fecha.setText(fechaT);
+
+                    }
+                }, yy, mm, dd);
+
+                datePicker.show();
+            }
+        });
+        hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar calendario = Calendar.getInstance();
+                int minute = calendario.get(Calendar.MINUTE);
+                int hour = calendario.get(Calendar.HOUR_OF_DAY);
+
+                TimePickerDialog timePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int minute, int hour) {
+                        String minHora = String.valueOf(minute)+":"+String.valueOf(hour);
+                        hora.setText(minHora);
+                    }
+                },minute,hour,true);
+                timePicker.show();
+            }
+        });
         return new AlertDialog.Builder(getActivity())
                 .setTitle(nuevoMensage ?
                          R.string.editar_evento :R.string.nuevo_evento )
