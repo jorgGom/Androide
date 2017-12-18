@@ -1,7 +1,9 @@
 package com.example.jorge.agenda.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +18,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
@@ -25,6 +30,7 @@ import com.example.jorge.agenda.providers.EventsProvider;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -69,8 +75,25 @@ public class InsertFragment extends DialogFragment
         mEdtFecha.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "datePicker");
+                final Calendar calendario = Calendar.getInstance();
+                int yy = calendario.get(Calendar.YEAR);
+                int mm = calendario.get(Calendar.MONTH);
+                int dd = calendario.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        int mes= monthOfYear+1;
+                        String fecha = String.valueOf(dayOfMonth)+"-"+String.valueOf(mes)
+                                +"-"+String.valueOf(year);
+                        mEdtFecha.setText(fecha);
+
+                    }
+                }, yy, mm, dd);
+
+                datePicker.show();
             }
         });
 
@@ -80,15 +103,24 @@ public class InsertFragment extends DialogFragment
 
         mEdtHora.setText(formattedTime);
 
-        mEdtHora.setOnClickListener(new View.OnClickListener(){
+        mEdtHora.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment newTimeFragment = new TimePickerFragment();
-                newTimeFragment.show(getFragmentManager(),"timePicker");
+            public void onClick(View view) {
+                final Calendar calendario = Calendar.getInstance();
+                int minute = calendario.get(Calendar.MINUTE);
+                int hour = calendario.get(Calendar.HOUR_OF_DAY);
+
+                TimePickerDialog timePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int minute, int hour) {
+                        String minHora = String.valueOf(minute)+":"+String.valueOf(hour);
+                        mEdtHora.setText(minHora);
+                    }
+                },minute,hour,true);
+                timePicker.show();
             }
         });
-
-        boolean nuevoMensage = true;
+                boolean nuevoMensage = true;
         if (getArguments() != null && getArguments().getLong(EXTRA_ID) != 0){
             id = getArguments().getLong(EXTRA_ID);
             Uri uri = Uri.withAppendedPath(

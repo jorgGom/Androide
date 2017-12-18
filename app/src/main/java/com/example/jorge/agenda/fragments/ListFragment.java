@@ -3,9 +3,11 @@ package com.example.jorge.agenda.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -57,7 +59,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                              Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.fragment_reclycer, container, false);
-
+        setHasOptionsMenu(true);
         context = view.getContext();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
         mRecyclerView.setHasFixedSize(true);
@@ -72,10 +74,13 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         String today =date.format(fechaActual);
         fecha.setText(today);
 
+
         String FechaSelect = fecha.getText().toString();
         consulta =
                 EventsContract.Columnas.FECHA_EVENTO + " = '"+ FechaSelect + "' order by "+
                         EventsContract.Columnas.HORA_EVENTO + " asc ;";
+
+
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -104,6 +109,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         return view;
 
     }
+
     private void configuraSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(
@@ -140,23 +146,19 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
+            case R.id.action_settings:
+                return true;
 
             case R.id.action_calendar:
-                Toast.makeText(getActivity(), "hola", Toast.LENGTH_SHORT).show();
-
                 MainDatePickerFragment newFragment = new MainDatePickerFragment();
                 newFragment.setHostingFragment(this);
                 newFragment.show(getFragmentManager(), "datePicker");
-
+                return true;
         }
         return false;
     }

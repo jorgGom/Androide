@@ -1,9 +1,12 @@
 package com.example.jorge.agenda.activity;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -15,19 +18,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jorge.agenda.R;
-import com.example.jorge.agenda.fragments.DatePickerFragment;
 import com.example.jorge.agenda.fragments.InsertFragment;
 import com.example.jorge.agenda.fragments.ListFragment;
 import com.example.jorge.agenda.fragments.MainDatePickerFragment;
-import com.example.jorge.agenda.fragments.TimePickerFragment;
+import com.example.jorge.agenda.providers.EventsContract;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public String consulta;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,8 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.container, fragment, ListFragment.class.getSimpleName())
                     .commit();
         }
+
+
     }
 
     @Override
@@ -98,13 +110,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             FragmentTransaction ft= fragmentManager.beginTransaction();
             ft.replace(R.id.container, new ListFragment()).commit();
-        } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
-
+            Intent i = new Intent(this,SettingsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,"Por favor, únete a nuestra comunidad de agendas. "+System.getProperty("line.separator")+
+                    "Si te ha gustado comparte con tus amigos.");
+            startActivity(intent);
 
         }
 

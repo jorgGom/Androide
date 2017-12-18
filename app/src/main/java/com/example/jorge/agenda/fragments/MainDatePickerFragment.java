@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import com.example.jorge.agenda.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by tarde on 16/05/2017.
@@ -53,8 +56,7 @@ public class MainDatePickerFragment extends DialogFragment
         TextView tv1=(TextView) getActivity().findViewById(R.id.fechaSelecionada);
         tv1.setText(formattedDate);
 
-        Toast.makeText(getActivity(), formattedDate, Toast.LENGTH_SHORT).show();
-
         hostingFragment.setDate(formattedDate);
+
     }
 }
