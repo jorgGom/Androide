@@ -10,8 +10,8 @@
             android:title="Eventos" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_access_alarm_black"
-            android:title="Recordatorios" />
+            android:icon="@drawable/ic_event_note_black"
+            android:title="Notas" />
 
         <item
             android:id="@+id/nav_manage"

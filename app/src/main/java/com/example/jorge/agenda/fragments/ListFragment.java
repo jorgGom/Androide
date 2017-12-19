@@ -5,37 +5,41 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.database.Cursor;
+
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.support.v4.app.DialogFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
+
 import android.view.LayoutInflater;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.jorge.agenda.R;
 import com.example.jorge.agenda.activity.DetailActivity;
+import com.example.jorge.agenda.activity.SettingsActivity;
 import com.example.jorge.agenda.adapters.EventsCursorAdapter;
 import com.example.jorge.agenda.providers.EventsContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.content.ContentValues.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -139,6 +143,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
                                 null, null);
 
                     }
+
                 };
         ItemTouchHelper itemTouchHelper =
                 new ItemTouchHelper(simpleItemTouchCallback);
@@ -146,12 +151,18 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
     }
 
-
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+        @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case R.id.action_settings:
+                Intent i = new Intent(getActivity(),SettingsActivity.class);
+                startActivity(i);
                 return true;
 
             case R.id.action_calendar:

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/grid"
+        android:icon="@drawable/ic_dashboard_black"
+        android:orderInCategory="100"
+        android:title="Cambiar diseño"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/list"
+        android:icon="@drawable/ic_view_list_black"
+        android:orderInCategory="100"
+        android:title="Cambiar diseño"
+        app:showAsAction="always" />
+</menu>
